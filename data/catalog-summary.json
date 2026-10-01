@@ -1,0 +1,13 @@
+{
+  "snapshotDate": "2026-10-01",
+  "mainRange": "2022–2026",
+  "mainVideoCount": 752,
+  "supplemental2019Count": 3,
+  "articleOnlyCount": 1,
+  "totalRecords": 756,
+  "mainKinds": {
+    "video": 641,
+    "livestream": 33,
+    "short": 78
+  }
+}
