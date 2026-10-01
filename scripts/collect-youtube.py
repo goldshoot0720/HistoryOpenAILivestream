@@ -28,7 +28,7 @@ def main():
     cache = json.loads(CACHE.read_text()) if CACHE.exists() else {}
     entries = {}
     counts = {}
-    for kind in ['videos', 'streams', 'shorts']:
+    for kind in ['streams']:
         local = Path('/tmp/openai-all-'+kind+'.json') if __import__('os').environ.get('OPENAI_REUSE_LISTINGS') == '1' else Path('/tmp/no-reused-listing')
         # Reuse the listing fetched in the current run when requested by this task.
         if local.exists():
@@ -48,7 +48,7 @@ def main():
     endpoint = 'https://www.youtube.com/youtubei/v1/player?key='+config['INNERTUBE_API_KEY']+'&prettyPrint=false'
     def collect(item):
         video_id, entry = item
-        if video_id in cache and cache[video_id].get('date'):
+        if video_id in cache and cache[video_id].get('date') and cache[video_id].get('channelId')==CHANNEL_ID:
             return {**cache[video_id], 'kind':entry['kind']}
         error = None
         for attempt in range(3):
@@ -77,10 +77,10 @@ def main():
             result.append(item)
             if len(result) % 100 == 0:
                 print('Metadata checked:', len(result), '/', len(entries), flush=True)
-    cache.update({item['id']:item for item in result if item.get('date')})
+    cache = {item['id']:item for item in result if item.get('date')}
     CACHE.parent.mkdir(exist_ok=True)
     CACHE.write_text(json.dumps(cache, ensure_ascii=False, indent=2)+'\n')
-    summary = {'source':CHANNEL, 'channelId':CHANNEL_ID, 'snapshotDate':datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8))).date().isoformat(), 'listingCounts':counts, 'uniqueVideos':len(entries), 'datedVideos':sum(bool(v.get('date')) for v in result), 'errors':[v for v in result if v.get('error')]}
+    summary = {'source':CHANNEL+'streams', 'channelId':CHANNEL_ID, 'snapshotDate':datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8))).date().isoformat(), 'listingCounts':counts, 'uniqueVideos':len(entries), 'datedVideos':sum(bool(v.get('date')) for v in result), 'errors':[v for v in result if v.get('error')]}
     (ROOT/'data'/'collection-summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps(summary, ensure_ascii=False),flush=True)
 if __name__ == '__main__':

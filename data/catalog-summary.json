@@ -1,13 +1,9 @@
 {
   "snapshotDate": "2026-10-01",
   "mainRange": "2022–2026",
-  "mainVideoCount": 752,
+  "mainVideoCount": 33,
   "supplemental2019Count": 3,
-  "articleOnlyCount": 1,
-  "totalRecords": 756,
-  "mainKinds": {
-    "video": 641,
-    "livestream": 33,
-    "short": 78
-  }
+  "articleOnlyCount": 0,
+  "totalRecords": 36,
+  "source": "https://www.youtube.com/@OpenAI/streams"
 }

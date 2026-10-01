@@ -1,13 +1,11 @@
 {
-  "source": "https://www.youtube.com/@OpenAI/",
+  "source": "https://www.youtube.com/@OpenAI/streams",
   "channelId": "UCXZCJLdBC09xxGZ6gcdrc6A",
   "snapshotDate": "2026-10-01",
   "listingCounts": {
-    "videos": 707,
-    "streams": 36,
-    "shorts": 78
+    "streams": 36
   },
-  "uniqueVideos": 821,
-  "datedVideos": 821,
+  "uniqueVideos": 36,
+  "datedVideos": 36,
   "errors": []
 }
